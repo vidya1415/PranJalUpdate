@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -27,6 +28,7 @@ public class dealer_products_list extends AppCompatActivity {
     String dealerID,productID;
     private FirebaseFirestore fs;
     FirestoreRecyclerAdapter adapter;
+    String documentId = " ",pro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +51,10 @@ public class dealer_products_list extends AppCompatActivity {
         Intent i = getIntent();
 //The second parameter below is the default string returned if the value is not there.
         dealerID = i.getExtras().getString("dealers");
-        productID = fs.collection("dealers").document(dealerID).collection("products").document().getId();
+       // productID = fs.collection("dealers").document(dealerID).collection("products").document().getId();
 
 
-        Log.d("TAG", dealerID);
+        Log.d("TAG", dealerID );
 
 
         //Query
@@ -76,7 +78,7 @@ public class dealer_products_list extends AppCompatActivity {
 
 
             @Override
-            protected void onBindViewHolder(@NonNull productlistViewHolder holder, int position, @NonNull final productlist model) {
+            protected void onBindViewHolder(@NonNull final productlistViewHolder holder, int position, @NonNull final productlist model) {
 
                 holder.brand_name.setText(model.getBrand());
                 holder.pricing.setText(model.getPrice());
@@ -88,11 +90,10 @@ public class dealer_products_list extends AppCompatActivity {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(dealer_products_list.this,product_details.class);
-                        intent.putExtra("pid",productID);
-                        intent.putExtra("did",dealerID);
+                        DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
+                        documentId=snapshot.getId();
+                        onItemClickListner.onClick(documentId);
 
-                        startActivity(intent);
                     }
                 });
 
@@ -101,7 +102,24 @@ public class dealer_products_list extends AppCompatActivity {
 
         recyclerViewlist.setHasFixedSize(true);
         recyclerViewlist.setLayoutManager(new LinearLayoutManager(this));
+
+        setOnItemClickListner(new onItemClickListner() {
+            @Override
+            public void onClick(String str) {
+                Bundle bundle = new Bundle();
+                Intent activityBstartIntent = new Intent(getApplicationContext(), product_details.class);
+                activityBstartIntent.putExtra("products",str);
+                activityBstartIntent.putExtra("dealers",dealerID);
+                startActivity(activityBstartIntent);
+
+
+                Log.d("TAG", str );
+
+            }
+        });
+
         recyclerViewlist.setAdapter(adapter);
+
 
         //View Holder
 
@@ -114,7 +132,7 @@ public class dealer_products_list extends AppCompatActivity {
       private TextView pricing;
           private TextView quantity_needed;
         private TextView type_inlit;
-    String d;
+
 
         public productlistViewHolder(@NonNull View itemView) {
             super(itemView);
