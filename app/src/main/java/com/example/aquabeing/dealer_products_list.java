@@ -114,7 +114,7 @@ public class dealer_products_list extends AppCompatActivity {
       private TextView pricing;
           private TextView quantity_needed;
         private TextView type_inlit;
-
+    String d;
 
         public productlistViewHolder(@NonNull View itemView) {
             super(itemView);
