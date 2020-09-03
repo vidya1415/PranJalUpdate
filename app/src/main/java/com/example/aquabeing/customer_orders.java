@@ -67,6 +67,8 @@ public class customer_orders extends AppCompatActivity {
 
 
 
+
+
         //Query
         Query query = fs.collection("customers").document(custID).collection("orders");     //RecyclerOptions
 
@@ -84,6 +86,7 @@ public class customer_orders extends AppCompatActivity {
 
                 return new cartViewHolder(view);
             }
+
 
             @Override
             protected void onBindViewHolder(@NonNull cartViewHolder holder, int position, @NonNull final cartmodel model)

@@ -3,17 +3,17 @@ package com.example.aquabeing.models;
 public class cartmodel {
 
     private String brand;
-    private String quantity;
-    private String total_price;
+    private Integer quantity;
+    private Integer total_price;
     private String customer_name;
     private String dealer_name;
     private String customer_id;
-    private String amount;
+    private Integer amount;
     private String dealer_id;
 
     public cartmodel(){}
 
-    public cartmodel(String brand, String quantity, String total_price, String customername, String dealername, String customer_id, String amount, String dealer_id) {
+    public cartmodel(String brand, Integer quantity, Integer total_price, String customername, String dealername, String customer_id, Integer amount, String dealer_id) {
         this.brand = brand;
         this.quantity = quantity;
         this.total_price = total_price;
@@ -33,19 +33,19 @@ public class cartmodel {
     }
 
 
-    public String getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
-    public String getTotal_price() {
+    public Integer getTotal_price() {
         return total_price;
     }
 
-    public void setTotal_price(String total_price) {
+    public void setTotal_price(Integer total_price) {
         this.total_price = total_price;
     }
 
@@ -73,11 +73,11 @@ public class cartmodel {
         this.customer_id = customer_id;
     }
 
-    public String getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 
